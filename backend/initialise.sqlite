@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS laptop (
+    id integer primary key,
+    manufacturer text,
+    model_name text,
+    category text,
+    screen_diag real,
+    screen_res text,
+    screen_type text,
+    screen_touch int,
+    cpu_vendor text,
+    cpu text,
+    ram int,
+    storage int,
+    storage_type text,
+    gpu_vendor text,
+    gpu text,
+    os text,
+    os_version text,
+    mass real,
+    price real
+)
