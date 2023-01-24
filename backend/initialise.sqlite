@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS laptop (
     screen_diag real,
     screen_res text,
     screen_type text,
-    screen_touch int,
+    screen_touch text,
     cpu_vendor text,
     cpu text,
     ram int,

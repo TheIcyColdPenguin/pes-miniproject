@@ -3,15 +3,15 @@ import csv
 import re
 
 get_res = re.compile(r'(\d+x\d+)', re.IGNORECASE)
-get_cpu_vendor = re.compile(r'(intel|amd)', re.IGNORECASE)
-get_gpu_vendor = re.compile(r'(intel|amd|nvidia)', re.IGNORECASE)
+get_cpu_vendor = re.compile(r'(intel|amd|samsung)', re.IGNORECASE)
+get_gpu_vendor = re.compile(r'(intel|amd|nvidia|arm)', re.IGNORECASE)
 get_storage = re.compile(r'(\d+)(g|t)b', re.IGNORECASE)
 
-db = sqlite3.connect('database',)
-with open('initialise.sqlite') as sql_source:
+db = sqlite3.connect('database')
+with open('./backend/initialise.sqlite') as sql_source:
     db.executescript(sql_source.read())
 
-with open('laptops.csv') as f:
+with open('./backend/laptops.csv') as f:
     reader = csv.reader(f)
     print(','.join(next(reader)))
     all_rows = []
@@ -25,7 +25,7 @@ with open('laptops.csv') as f:
         this_row.append(line[1])
 
         # category
-        this_row.append(line[2])
+        this_row.append(line[2].replace(' ', '-'))
 
         # screen_diag
         this_row.append(float(line[3].strip('"')))
@@ -38,7 +38,7 @@ with open('laptops.csv') as f:
         this_row.append(get_res.sub('', line[4]).strip())
 
         # screen_touch
-        this_row.append(1 if 'touch' in line[4].lower() else 0)
+        this_row.append('touch' if 'touch' in line[4].lower() else 'non-touch')
 
         # cpu_vendor
         maybe_cpu_vendor = get_cpu_vendor.search(line[5])
@@ -62,7 +62,7 @@ with open('laptops.csv') as f:
         types = ['ssd' if 'ssd' in line[7].lower() else '',
                  'hdd' if 'hdd' in line[7].lower() else '',
                  'flash' if 'flash' in line[7].lower() else '']
-        this_row.append(','.join(i for i in types if i))
+        this_row.append(','.join(i for i in types if i) or 'none')
 
         # gpu_vendor
         maybe_gpu_vendor = get_gpu_vendor.search(line[8])
@@ -72,7 +72,7 @@ with open('laptops.csv') as f:
         this_row.append(get_gpu_vendor.sub('', line[8]).strip())
 
         # os
-        this_row.append(line[9])
+        this_row.append(line[9].replace(' ','').lower().replace('os', 'OS'))
 
         # os version
         this_row.append(line[10])

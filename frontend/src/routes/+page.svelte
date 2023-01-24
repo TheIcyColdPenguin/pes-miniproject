@@ -15,12 +15,13 @@
 <style>
 	main {
 		width: 100vw;
-		height: 100vh;
+		height: 100%;
 		margin: 0;
 		padding: 0;
+		overflow: hidden;
 
 		display: grid;
-		grid-template-rows: 1fr 10fr;
+		grid-template-rows: 75px 10fr;
 		grid-template-columns: 2fr 9fr;
 
 		background-color: rgb(232, 219, 240);
