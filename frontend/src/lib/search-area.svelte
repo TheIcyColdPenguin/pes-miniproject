@@ -4,7 +4,6 @@
 
 	$: {
 		(async () => {
-			console.log($searchWords);
 			$laptops = await getLaptops($searchCheckboxes, $searchRanges, $searchWords);
 		})();
 	}

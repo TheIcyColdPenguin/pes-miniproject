@@ -21,7 +21,6 @@
 		if (!Object.keys($searchRanges).length) {
 			for (const range in $fields.ranges) {
 				$searchRanges[range] = [...$fields.ranges[range as keyof Ranges]];
-				console.log($searchRanges[range]);
 			}
 		}
 		(async () => {
